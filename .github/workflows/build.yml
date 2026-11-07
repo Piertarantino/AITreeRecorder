@@ -93,6 +93,10 @@ jobs:
             - **Mac con chip Apple (M1-M4)**: `*-Mac-Apple-Silicon.dmg`
             - **Mac Intel**: `*-Mac-Intel.dmg`
 
+            **Mac, primo avvio:** macOS dice "AI Tree Recorder non è stata aperta". Premi **Fine**, poi Impostazioni di Sistema → Privacy e sicurezza → **Apri comunque** (in fondo alla pagina). Oppure nel Terminale: `xattr -dr com.apple.quarantine "/Applications/AI Tree Recorder.app"`
+
+            **Windows, primo avvio:** se compare "Windows ha protetto il PC", premi **Ulteriori informazioni → Esegui comunque**.
+
             Istruzioni di installazione nel [README](https://github.com/${{ github.repository }}#scarica).
           files: |
             out/windows-installer/*.exe

@@ -27,8 +27,17 @@ Python, ffmpeg e tutto il resto sono già dentro: non serve installare altro.
 ### Mac (macOS 14 Sonoma o successivo)
 
 1. Apri il `.dmg` e trascina **AI Tree Recorder** in **Applicazioni**.
-2. Al primo avvio: **tasto destro sull'app → Apri → Apri** (l'app non è firmata da Apple). In alternativa: Impostazioni di Sistema → Privacy e sicurezza → "Apri comunque".
-3. Concedi i permessi **Microfono** e **Registrazione schermo e audio di sistema**, poi riapri l'app.
+2. Apri l'app. Siccome non è firmata da Apple, macOS mostra **"AI Tree Recorder non è stata aperta"**: premi **Fine** (non "Sposta nel Cestino").
+3. Vai in **Impostazioni di Sistema → Privacy e sicurezza**, scorri fino in fondo e accanto a "AI Tree Recorder è stata bloccata" premi **Apri comunque**. Inserisci la password del Mac e conferma con **Apri**. Va fatto solo la prima volta.
+4. Concedi i permessi **Microfono** e **Registrazione schermo e audio di sistema**, poi chiudi e riapri l'app.
+
+**In alternativa, dal Terminale** (una riga, poi l'app si apre normalmente):
+
+```
+xattr -dr com.apple.quarantine "/Applications/AI Tree Recorder.app"
+```
+
+Su macOS 15 e successivi il vecchio trucco "tasto destro → Apri" non basta più: serve il passaggio da Privacy e sicurezza.
 
 ## Come si usa
 
