@@ -2,6 +2,17 @@
 
 Registra le call (Zoom, Teams, Meet, qualsiasi app, browser o desktop), le trascrive in locale e capisce chi ha detto cosa. Alla fine di ogni call prepara un report e un **pacchetto pronto da dare a qualsiasi IA**. Nessun dato esce dal PC, a meno che tu non attivi l'invio a un'IA.
 
+## Installazione semplice (installer)
+
+- **Windows:** scarica `AI-Tree-Recorder-Setup-x.y.z.exe` e aprilo. Non servono permessi di amministratore. Puoi scegliere l'icona sul desktop e l'avvio insieme a Windows.
+- **Mac:** scarica il `.dmg` giusto (Apple Silicon o Intel), aprilo e trascina l'app in Applicazioni. Al primo avvio: tasto destro → Apri, poi concedi Microfono e Registrazione schermo e audio.
+
+Python, ffmpeg e tutto il resto sono già dentro. Gli installer vengono costruiti in automatico su GitHub (`.github/workflows/build.yml`) a ogni modifica; con un tag `vX.Y.Z` finiscono in una Release.
+
+**GPU NVIDIA:** nelle impostazioni la voce **GPU** è "automatica": se la scheda e il suo supporto ci sono, la usa da sola. Scegliendo **NVIDIA** il programma scarica una volta il supporto CUDA (~1,2 GB) e da lì trascrive 5-10 volte più veloce. "no (CPU)" la esclude.
+
+Le sezioni sotto servono solo per usare il programma senza installer, da sorgente.
+
 ## Come funziona
 
 - **Due tracce audio separate:** il tuo microfono ("Io") e l'audio del PC ("Loro"). Così si sa chi parla senza usare IA.
