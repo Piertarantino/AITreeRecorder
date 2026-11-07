@@ -1,0 +1,14 @@
+numpy>=1.26
+soundfile>=0.12
+soundcard>=0.4.3
+psutil>=5.9
+pystray>=0.19 ; sys_platform == "win32"
+pillow>=10
+faster-whisper>=1.1
+
+# Facoltativi
+# imageio-ffmpeg          ffmpeg incluso, se non lo installi con winget
+# anthropic               invio a Claude via API
+# openai                  invio a ChatGPT via API
+# google-genai            invio a Gemini via API
+# nvidia-cublas-cu12 nvidia-cudnn-cu12==9.*   trascrizione su GPU NVIDIA

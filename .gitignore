@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+vendor/
+dist/
+build/
+mac/build/
+selftest.txt
+packaging/icon.png
+packaging/icon.ico
+*.spec

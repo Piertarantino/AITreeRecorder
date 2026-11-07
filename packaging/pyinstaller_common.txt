@@ -1,0 +1,10 @@
+--noconfirm
+--clean
+--windowed
+--name=AI Tree Recorder
+--collect-data=faster_whisper
+--collect-all=ctranslate2
+--collect-all=onnxruntime
+--collect-data=soundcard
+--collect-submodules=aitree
+--hidden-import=tkinter
