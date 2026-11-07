@@ -71,6 +71,7 @@ jobs:
     needs: [windows, mac]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           path: out
@@ -96,3 +97,4 @@ jobs:
           files: |
             out/windows-installer/*.exe
             out/mac-*/*.dmg
+            docs/AI-Tree-Recorder-presentazione.pdf

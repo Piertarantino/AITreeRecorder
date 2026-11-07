@@ -6,6 +6,8 @@ A fine call trovi il video, la trascrizione con i nomi, un report e un pacchetto
 
 ## Scarica
 
+Prima di iniziare puoi sfogliare la **[presentazione illustrata (PDF)](docs/AI-Tree-Recorder-presentazione.pdf)**.
+
 Vai su **[Releases](../../releases/latest)** e scarica il file per il tuo computer:
 
 | Computer | File |
