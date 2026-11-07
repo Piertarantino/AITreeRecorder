@@ -3,7 +3,7 @@
 set -euo pipefail
 cd "${0:A:h}/.."
 arch=$(uname -m)                   # arm64 o x86_64
-version=${APP_VERSION:-0.4.0}
+version=${APP_VERSION:-0.4.0}; version=${version#v}
 version=${version#v}
 
 # 1. Helper nativo (audio del Mac + app che usano il microfono), solo per questa architettura
