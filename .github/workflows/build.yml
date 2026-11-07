@@ -66,15 +66,33 @@ jobs:
           path: selftest.txt
 
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Release con un tag vX.Y.Z, oppure con "[release vX.Y.Z]" nel messaggio del commit su main
+    if: startsWith(github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[release v')
     needs: [windows, mac]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
         with:
           path: out
+      - id: ver
+        env:
+          MSG: ${{ github.event.head_commit.message }}
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then echo "tag=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT";
+          else echo "tag=$(grep -o '\[release v[0-9.]*' <<< "$MSG" | head -1 | cut -c10-)" >> "$GITHUB_OUTPUT"; fi
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: AI Tree Recorder ${{ steps.ver.outputs.tag }}
+          make_latest: true
+          body: |
+            Scarica il file per il tuo computer:
+            - **Windows 10/11**: `AI-Tree-Recorder-Setup-*.exe`
+            - **Mac con chip Apple (M1-M4)**: `*-Mac-Apple-Silicon.dmg`
+            - **Mac Intel**: `*-Mac-Intel.dmg`
+
+            Istruzioni di installazione nel [README](https://github.com/${{ github.repository }}#scarica).
           files: |
             out/windows-installer/*.exe
             out/mac-*/*.dmg
