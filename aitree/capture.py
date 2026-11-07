@@ -38,7 +38,7 @@ class TrackRecorder(threading.Thread):
                     warnings.catch_warnings():
                 # soundcard avvisa a ogni blocco di silenzio del loopback: non serve.
                 warnings.simplefilter("ignore")
-                with self.device.recorder(samplerate=SAMPLE_RATE, channels=1, blocksize=BLOCK) as rec:
+                with open_recorder(self.device) as rec:
                     while not self.stop.is_set():
                         data = rec.record(numframes=BLOCK)
                         mono = data.mean(axis=1) if data.ndim == 2 else data
@@ -56,6 +56,38 @@ class TrackRecorder(threading.Thread):
         if lag > MAX_LAG_S * SAMPLE_RATE:
             out.write(np.zeros(lag, dtype=np.float32))
             self.frames += lag
+
+
+def open_recorder(device):
+    """Apre la sorgente a 48 kHz mono.
+
+    Su Mac (CoreAudio) il blocco interno deve stare tra ~15 e 512 campioni e dipende
+    dal dispositivo: lo lasciamo scegliere a CoreAudio. Leggiamo comunque 100 ms alla
+    volta con record(numframes=BLOCK), che accumula i blocchi piccoli.
+    """
+    if IS_MAC:
+        return device.recorder(samplerate=SAMPLE_RATE, channels=1)
+    try:
+        return device.recorder(samplerate=SAMPLE_RATE, channels=1, blocksize=BLOCK)
+    except TypeError as exc:
+        if "blocksize" not in str(exc):
+            raise
+        return device.recorder(samplerate=SAMPLE_RATE, channels=1)
+
+
+def test_microphone(seconds: float = 0.3) -> str:
+    """Apre davvero il microfono predefinito e legge un po' di audio (per il selftest)."""
+    import soundcard as sc
+    mic = sc.default_microphone()
+    if mic is None:
+        return "nessun microfono (saltato)"
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        with open_recorder(mic) as rec:
+            n = 0
+            while n < int(seconds * SAMPLE_RATE):
+                n += len(rec.record(numframes=BLOCK))
+    return f"{mic.name}: {n} campioni letti"
 
 
 def default_devices():

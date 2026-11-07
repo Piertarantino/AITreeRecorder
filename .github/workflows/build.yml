@@ -24,7 +24,7 @@ jobs:
       - name: Build e installer
         shell: pwsh
         env:
-          APP_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '0.4.0' }}
+          APP_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '0.4.1' }}
         run: ./packaging/build_windows.ps1
       - uses: actions/upload-artifact@v4
         with:
@@ -53,7 +53,7 @@ jobs:
           pip install -r requirements.txt pyinstaller
       - name: Build app e DMG
         env:
-          APP_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '0.4.0' }}
+          APP_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '0.4.1' }}
         run: zsh packaging/build_mac.sh
       - uses: actions/upload-artifact@v4
         with:

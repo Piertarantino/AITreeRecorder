@@ -24,7 +24,7 @@ Get-Content selftest.txt
 if ($p.ExitCode -ne 0) { throw "Selftest non superato" }
 
 # Installer
-$version = if ($env:APP_VERSION) { $env:APP_VERSION.TrimStart("v") } else { "0.4.0" }
+$version = if ($env:APP_VERSION) { $env:APP_VERSION.TrimStart("v") } else { "0.4.1" }
 & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$version" packaging\installer.iss
 if ($LASTEXITCODE -ne 0) { throw "Inno Setup non riuscito" }
 Get-ChildItem dist\*.exe

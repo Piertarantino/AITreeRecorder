@@ -180,6 +180,15 @@ def cmd_selftest(cfg, args) -> None:
     check("opus", lambda: " ".join(ff.opus_args(24)[:2]))
     check("encoder video", ff.pick_encoder)
     check("VAD silero", lambda: __import__("faster_whisper.vad", fromlist=["x"]).get_vad_model() and "ok")
+    def mic():
+        from .capture import test_microphone
+        try:
+            return test_microphone()
+        except Exception as exc:  # senza microfono (macchine di build) non è un errore
+            if "blocksize" in str(exc):
+                raise
+            return f"non verificabile qui ({exc.__class__.__name__}: {exc})"
+    check("microfono", mic)
     if sys.platform == "darwin" and int(platform.mac_ver()[0].split(".")[0]) >= 14:
         from .capture import helper_path
         check("helper", lambda: subprocess.run([helper_path(), "mic-users"], capture_output=True,
